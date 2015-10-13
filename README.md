@@ -1,2 +1,2 @@
 # openwro-backend
-Backend for open Wroclaw data conversion
+Backend for Wroclaw's open data conversion
