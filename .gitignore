@@ -3,11 +3,14 @@
 dbService/.classpath
 dbService/.project
 dbService/.settings/
+dbService/target/
 resourceConnector/.classpath
 resourceConnector/.project
 resourceConnector/.settings/
+resourceConnector/target/
 restServices/.project
 restServices/.settings/
 restServices/carparks/.project
 restServices/carparks/.settings/
 restServices/carparks/.classpath
+restServices/carparks/target
