@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>pl.pikopl</groupId>
+    <artifactId>openwro</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>pl.pikopl.openwro</groupId>
+  <artifactId>restServices</artifactId>
+  <packaging>pom</packaging>
+  <name>OpenWro ${project.version} :: REST Services</name>
+  <modules>
+   <module>carparks</module>
+  </modules>
+  
+  	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+  
+  	<dependencies>
+		<dependency>
+			<groupId>pl.pikopl.openWro</groupId>
+			<artifactId>dbService</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>
