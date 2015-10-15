@@ -45,7 +45,7 @@ public class PersitenceConfig {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(dataSource);
 		entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-		entityManagerFactoryBean.setPackagesToScan("pl.pikopl.openwro.dbService");
+		entityManagerFactoryBean.setPackagesToScan("pl.pikopl.openwro.dbservice");
 
 		Properties jpaProperties = new Properties();
 
