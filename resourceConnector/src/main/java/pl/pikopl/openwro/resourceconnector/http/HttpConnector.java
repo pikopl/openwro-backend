@@ -35,9 +35,10 @@ public class HttpConnector {
 
 		String inputLine;
 		StringBuffer response = new StringBuffer();
-
+		final String lineSeparator = System.getProperty("line.separator");
 		while ((inputLine = reader.readLine()) != null) {
 			response.append(inputLine);
+			response.append(lineSeparator);
 		}
 		reader.close();
 		httpClient.close();
