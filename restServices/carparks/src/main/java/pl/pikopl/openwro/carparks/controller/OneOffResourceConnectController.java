@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.pikopl.openwro.core.dataconverter.CarParkDataConverter;
 import pl.pikopl.openwro.resourceconnector.http.HttpConnector;
 import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;
 
@@ -35,7 +36,8 @@ public class OneOffResourceConnectController {
 		Long resultCode = -1L;
 		try {
 			final String result = HttpConnector.sendGET(RESOURCE_URL);
-			System.out.println("ANYWHERE:> " + this.getClass() + ":oneOffResourceConnect:result:" + result);
+			System.out.println("ANY:> " + this.getClass() + ":oneOffResourceConnect:result:" + result);
+			CarParkDataConverter.convertCsv(result);
 			resultCode = 200L;
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
