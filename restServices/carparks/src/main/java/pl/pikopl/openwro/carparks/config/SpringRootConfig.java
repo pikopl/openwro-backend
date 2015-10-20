@@ -8,7 +8,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @ComponentScan({ 	"pl.pikopl.openwro.carparks.controller", 
 					"pl.pikopl.openwro.dbservice", 
-					"pl.pikopl.openwro.carparks.config" })
+					"pl.pikopl.openwro.carparks.config",
+					"pl.pikopl.openwro.core.database"})
 public class SpringRootConfig {
 	
 }

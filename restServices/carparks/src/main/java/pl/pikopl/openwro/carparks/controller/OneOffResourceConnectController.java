@@ -4,12 +4,16 @@
 package pl.pikopl.openwro.carparks.controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.pikopl.openwro.core.database.DatabaseService;
 import pl.pikopl.openwro.core.dataconverter.CarParkDataConverter;
 import pl.pikopl.openwro.resourceconnector.http.HttpConnector;
 import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;
@@ -20,6 +24,10 @@ import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;
  */
 @RestController
 public class OneOffResourceConnectController {
+	
+	@Autowired
+	private DatabaseService sbService;
+	
 	final private static String RESOURCE_URL = "http://www.wroclaw.pl/open-data/opendata/its/parkingi/parkingi.csv";
 
 	/**
@@ -37,7 +45,8 @@ public class OneOffResourceConnectController {
 		try {
 			final String result = HttpConnector.sendGET(RESOURCE_URL);
 			System.out.println("ANY:> " + this.getClass() + ":oneOffResourceConnect:result:" + result);
-			CarParkDataConverter.convertCsv(result);
+			List<Map<String, Object>> data = CarParkDataConverter.convertCsv(result);
+			sbService.fillCarkParkLoadTable(data);
 			resultCode = 200L;
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block

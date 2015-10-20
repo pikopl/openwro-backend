@@ -3,7 +3,6 @@
  */
 package pl.pikopl.openwro.core.dataconverter;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -23,7 +22,7 @@ import org.supercsv.prefs.CsvPreference;
  */
 public class CarParkDataConverter {
 	
-	public static void convertCsv(final String data) throws IOException {
+	public static List<Map<String, Object>> convertCsv(final String data) throws IOException {
 		System.out.println("ENTER:> CarParkDataConverter:convertCsv");
 		List<Map<String, Object>> csvFileData = new LinkedList<Map<String, Object>>();
 		Reader bufferedReader = new StringReader(data);
@@ -47,8 +46,8 @@ public class CarParkDataConverter {
 				mapReader.close();
 			}
 		}
-		//TODO: insert converted object to DB
 		System.out.println("EXIT:> CarParkDataConverter:convertCsv:\n " + csvFileData);
+		return csvFileData;
 	}
 	
 	/**
