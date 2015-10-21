@@ -5,11 +5,13 @@ package pl.pikopl.openwro.core.database;
 
 import java.util.List;
 import java.util.Map;
+import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.pikopl.openwro.dbservice.model.CarPark;
+import pl.pikopl.openwro.dbservice.model.CarParkLoad;
 import pl.pikopl.openwro.dbservice.repository.CarParkLoadRepository;
 import pl.pikopl.openwro.dbservice.repository.CarParkRepository;
 
@@ -26,10 +28,27 @@ public class DatabaseService {
 	@Autowired
 	private CarParkRepository carParkRepo;
 	
-	public void fillCarkParkLoadTable(final List<Map<String, Object>> data){
-		System.out.println("ENTER:> DatabaseFiller.fillCarkParkLoadTable");
+	public void fillCarkParkData(final List<Map<String, Object>> data){
+		System.out.println("ENTER:> DatabaseFiller.fillCarkParkData");
 		fillCarParkTable();
-
+		fillCarkParkLoadTable(data);
+		System.out.println("EXIT:> DatabaseFiller.fillCarkParkData");
+	}
+	
+	protected void fillCarkParkLoadTable(final List<Map<String, Object>> data){
+		System.out.println("ENTER:> DatabaseFiller.fillCarkParkLoadTable");
+		for (Map<String, Object> record : data) {
+			CarParkLoad carParkLoad = new CarParkLoad();
+			//TODO: move string to property file
+			carParkLoad.setFreePlaceAmount((Long) record.get("Liczba_Wolnych_Miejsc"));
+			carParkLoad.setCarInAmount((Long) record.get("Liczba_Poj_Wjezdzajacych"));
+			carParkLoad.setCarOutAmount((Long) record.get("Liczba_Poj_Wyjezdzajacych"));
+			carParkLoad.setTimestamp((Timestamp) record.get("Czas_Rejestracji")); //TODO: convert string to timestamp
+			CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa"));
+			carParkLoad.setCarPark(carPark);
+			carParkLoadRepo.save(carParkLoad);
+			System.out.println("ANY:> DatabaseFiller.fillCarkParkLoadTable:successfully save record with timestamp " + record.get("Czas_Rejestracji"));
+		}
 		System.out.println("EXIT:> DatabaseFiller.fillCarkParkLoadTable");
 	}
 	

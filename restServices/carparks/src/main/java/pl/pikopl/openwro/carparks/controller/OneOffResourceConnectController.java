@@ -46,7 +46,7 @@ public class OneOffResourceConnectController {
 			final String result = HttpConnector.sendGET(RESOURCE_URL);
 			System.out.println("ANY:> " + this.getClass() + ":oneOffResourceConnect:result:" + result);
 			List<Map<String, Object>> data = CarParkDataConverter.convertCsv(result);
-			sbService.fillCarkParkLoadTable(data);
+			sbService.fillCarkParkData(data);
 			resultCode = 200L;
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
