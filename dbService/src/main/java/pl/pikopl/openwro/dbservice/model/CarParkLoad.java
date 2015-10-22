@@ -9,8 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(name = "carparkload", uniqueConstraints={
+	    @UniqueConstraint(columnNames = {"timestamp", "carpark_carparkid"})
+	})
 public class CarParkLoad {
 	
 	@Id
