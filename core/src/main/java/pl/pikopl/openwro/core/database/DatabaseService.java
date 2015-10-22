@@ -3,6 +3,9 @@
  */
 package pl.pikopl.openwro.core.database;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.sql.Timestamp;
@@ -38,19 +41,42 @@ public class DatabaseService {
 	protected void fillCarkParkLoadTable(final List<Map<String, Object>> data){
 		System.out.println("ENTER:> DatabaseFiller.fillCarkParkLoadTable");
 		for (Map<String, Object> record : data) {
-			CarParkLoad carParkLoad = new CarParkLoad();
-			//TODO: move string to property file
-			carParkLoad.setFreePlaceAmount((Long) record.get("Liczba_Wolnych_Miejsc"));
-			carParkLoad.setCarInAmount((Long) record.get("Liczba_Poj_Wjezdzajacych"));
-			carParkLoad.setCarOutAmount((Long) record.get("Liczba_Poj_Wyjezdzajacych"));
-			carParkLoad.setTimestamp((Timestamp) record.get("Czas_Rejestracji")); //TODO: convert string to timestamp
-			CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa"));
-			carParkLoad.setCarPark(carPark);
-			carParkLoadRepo.save(carParkLoad);
+			
+			try {
+				CarParkLoad carParkLoad = new CarParkLoad();
+				//TODO: move strings to property file
+				carParkLoad.setFreePlaceAmount(Long.parseLong((String) record.get("Liczba_Wolnych_Miejsc")));
+				carParkLoad.setCarInAmount(Long.parseLong((String) record.get("Liczba_Poj_Wjezdzajacych")));
+				carParkLoad.setCarOutAmount(Long.parseLong((String) record.get("Liczba_Poj_Wyjezdzajacych")));
+				carParkLoad.setTimestamp(parseTimestamp((String) record.get("Czas_Rejestracji")));
+				CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa")); //TODO: locale
+				carParkLoad.setCarPark(carPark);
+				carParkLoadRepo.save(carParkLoad);
+			} catch (Exception e) {
+				System.out.println("ANY:> DatabaseFiller.fillCarkParkLoadTable" + e);
+			}	
 			System.out.println("ANY:> DatabaseFiller.fillCarkParkLoadTable:successfully save record with timestamp " + record.get("Czas_Rejestracji"));
 		}
 		System.out.println("EXIT:> DatabaseFiller.fillCarkParkLoadTable");
 	}
+	
+	protected Timestamp parseTimestamp(final String timestampString) throws ParseException {
+		System.out.println("ENTER:> DatabaseFiller.parseTimestamp");
+		//TODO: move string to property file
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+	    Date parsedDate = null;
+		try {
+			parsedDate = dateFormat.parse(timestampString);
+		} catch (ParseException e) {
+			System.out.println("ERROR:> DatabaseFiller.parseTimestamp:" + e);
+			throw e;
+		}
+	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+		System.out.println("EXIT:> DatabaseFiller.parseTimestamp:result " + timestamp);
+		return timestamp;
+	}
+	
+	
 	
 	/**
 	 * Fills CarPark table with hardcoded values by now
@@ -65,9 +91,9 @@ public class DatabaseService {
 			carParkRepo.save(carPark1);
 		}
 
-		if (carParkRepo.findByName("ul. sw. Antoniego") == null) {
+		if (carParkRepo.findByName("ul. œw. Antoniego") == null) {
 			CarPark carPark2 = new CarPark();
-			carPark2.setName("ul. sw. Antoniego");
+			carPark2.setName("ul. œw. Antoniego");
 			carPark2.setCapacity(140L);
 			carParkRepo.save(carPark2);
 		}
