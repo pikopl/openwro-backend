@@ -29,7 +29,7 @@ public class SchedulerService {
 	
 	final private static String RESOURCE_URL = "http://www.wroclaw.pl/open-data/opendata/its/parkingi/parkingi.csv";
 	
-	@Scheduled(cron="0 10 * * * ?")
+	@Scheduled(cron="0 0 10 * * ?")
 	public void importData(){
 		System.out.println("ENTER:> " + this.getClass() + ":importData");
 		Long resultCode = -1L;
