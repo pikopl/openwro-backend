@@ -63,7 +63,7 @@ public class DatabaseService {
 	protected Timestamp parseTimestamp(final String timestampString) throws ParseException {
 		System.out.println("ENTER:> DatabaseFiller.parseTimestamp");
 		//TODO: move string to property file
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 	    Date parsedDate = null;
 		try {
 			parsedDate = dateFormat.parse(timestampString);
