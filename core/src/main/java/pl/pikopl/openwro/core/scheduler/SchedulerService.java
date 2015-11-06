@@ -29,7 +29,7 @@ public class SchedulerService {
 	
 	final private static String RESOURCE_URL = "http://www.wroclaw.pl/open-data/opendata/its/parkingi/parkingi.csv";
 	
-	@Scheduled(cron="0 0 10 * * ?")
+	@Scheduled(cron="0 0 4 * * ?")
 	public void importData(){
 		System.out.println("ENTER:> " + this.getClass() + ":importData");
 		Long resultCode = -1L;
@@ -50,6 +50,29 @@ public class SchedulerService {
 			e.printStackTrace();
 		}
 		System.out.println("EXIT:> " + this.getClass() + ":importData:resultCode:" + resultCode);
+	}
+	
+	/**
+	 * This method is used only for stopping wildfly from idling. Executed once a day
+	 */
+	@Scheduled(cron="0 0 10 * * ?")
+	public void keepAlive(){
+		System.out.println("ENTER:> " + this.getClass() + ":keepAlive");
+		Long resultCode = -1L;
+		try {
+			HttpConnector.sendGET(RESOURCE_URL);
+			resultCode = 200L;
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HttpRequestFailureException e) {
+			resultCode = (long) e.getStatusCode();
+			e.printStackTrace();
+		}
+		System.out.println("EXIT:> " + this.getClass() + ":keepAlive:resultCode:" + resultCode);
 	}
 
 }
