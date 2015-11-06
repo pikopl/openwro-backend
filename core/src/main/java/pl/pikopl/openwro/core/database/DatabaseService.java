@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.sql.Timestamp;
 
@@ -50,6 +51,12 @@ public class DatabaseService {
 				carParkLoad.setCarOutAmount(Long.parseLong((String) record.get("Liczba_Poj_Wyjezdzajacych")));
 				carParkLoad.setTimestamp(parseTimestamp((String) record.get("Czas_Rejestracji")));
 				CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa")); //TODO: locale
+				if (carPark == null) { //workaround for lacking locale and parking not match
+					carPark = new CarPark();
+					carPark.setCarParkid(2L);
+					carPark.setName("ul. œw. Antoniego");
+					carPark.setCapacity(140L);
+				}
 				carParkLoad.setCarPark(carPark);
 				carParkLoadRepo.save(carParkLoad);
 			} catch (Exception e) {
@@ -63,7 +70,8 @@ public class DatabaseService {
 	protected Timestamp parseTimestamp(final String timestampString) throws ParseException {
 		System.out.println("ENTER:> DatabaseFiller.parseTimestamp");
 		//TODO: move string to property file
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		//Locale.FRENCH solves problem with noon date inserting to the DB as 00.
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS",  Locale.FRENCH);
 	    Date parsedDate = null;
 		try {
 			parsedDate = dateFormat.parse(timestampString);
