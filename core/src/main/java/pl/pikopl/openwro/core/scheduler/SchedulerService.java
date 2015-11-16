@@ -51,28 +51,4 @@ public class SchedulerService {
 		}
 		System.out.println("EXIT:> " + this.getClass() + ":importData:resultCode:" + resultCode);
 	}
-	
-	/**
-	 * This method is used only for stopping wildfly from idling. Executed once a day
-	 */
-	@Scheduled(cron="0 0 10 * * ?")
-	public void keepAlive(){
-		System.out.println("ENTER:> " + this.getClass() + ":keepAlive");
-		Long resultCode = -1L;
-		try {
-			HttpConnector.sendGET(RESOURCE_URL);
-			resultCode = 200L;
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HttpRequestFailureException e) {
-			resultCode = (long) e.getStatusCode();
-			e.printStackTrace();
-		}
-		System.out.println("EXIT:> " + this.getClass() + ":keepAlive:resultCode:" + resultCode);
-	}
-
 }
