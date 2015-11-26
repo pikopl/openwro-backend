@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.client.ClientProtocolException;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pl.pikopl.openwro.core.database.DatabaseService;
 import pl.pikopl.openwro.core.dataconverter.CarParkDataConverter;
+import pl.pikopl.openwro.core.scheduler.SchedulerService;
 import pl.pikopl.openwro.resourceconnector.http.HttpConnector;
 import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;
 
@@ -28,6 +30,8 @@ public class OneOffResourceConnectController {
 	@Autowired
 	private DatabaseService sbService;
 	
+	protected static final Logger LOGGER = Logger.getLogger(OneOffResourceConnectController.class);
+	
 	final private static String RESOURCE_URL = "http://www.wroclaw.pl/open-data/opendata/its/parkingi/parkingi.csv";
 
 	/**
@@ -40,25 +44,27 @@ public class OneOffResourceConnectController {
 	 */
 	@RequestMapping(value = "/oneOffResourceConnect", method = RequestMethod.GET)
 	public Long oneOffResourceConnect() {
-		System.out.println("ENTER:> " + this.getClass() + ":oneOffResourceConnect");
+		LOGGER.info("Entering oneOffResourceConnect()");
 		Long resultCode = -1L;
 		try {
 			final String result = HttpConnector.sendGET(RESOURCE_URL);
-			System.out.println("ANY:> " + this.getClass() + ":oneOffResourceConnect:result:" + result);
+			if (LOGGER.isTraceEnabled()) {
+				LOGGER.tracef("After getting string result in oneOffResourceConnect(): %s", result);
+			}
 			List<Map<String, Object>> data = CarParkDataConverter.convertCsv(result);
 			sbService.fillCarkParkData(data);
 			resultCode = 200L;
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("ClientProtocolException occurs", e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("IOException occurs", e);
 		} catch (HttpRequestFailureException e) {
 			resultCode = (long) e.getStatusCode();
-			e.printStackTrace();
+			LOGGER.error("HttpRequestFailureException occurs", e);
+		} catch (Exception e){
+			LOGGER.error("Other exception occurs", e);
 		}
-		System.out.println("EXIT:> " + this.getClass() + ":oneOffResourceConnect:resultCode:" + resultCode);
+		LOGGER.infof("Leaving oneOffResourceConnect(): %s", resultCode);
 		return resultCode;
 	}
 }

@@ -12,16 +12,20 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.jboss.logging.Logger;
 
 /**
  * @author kopajczy
  *
  */
 public class HttpConnector {
+	
+	protected static final Logger LOGGER = Logger.getLogger(HttpConnector.class);
 
 	public static String sendGET(final String url)
 			throws ClientProtocolException, IOException,
 			HttpRequestFailureException {
+		LOGGER.infof("Entering sendGET(%s)", url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(url);
 		// httpGet.addHeader("User-Agent", USER_AGENT);
@@ -44,8 +48,11 @@ public class HttpConnector {
 		httpClient.close();
 		
 		String result = response.toString();
-		// print result
-		//System.out.println(result);
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving sendGET(): %s", result);
+		} else {
+			LOGGER.info("Leaving sendGET()");
+		}
 		return result;
 	}
 

@@ -10,11 +10,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapReader;
 import org.supercsv.io.ICsvMapReader;
 import org.supercsv.prefs.CsvPreference;
+
+import pl.pikopl.openwro.core.database.DatabaseService;
 
 /**
  * @author kopajczy
@@ -22,8 +25,14 @@ import org.supercsv.prefs.CsvPreference;
  */
 public class CarParkDataConverter {
 	
+	protected static final Logger LOGGER = Logger.getLogger(CarParkDataConverter.class);
+	
 	public static List<Map<String, Object>> convertCsv(final String data) throws IOException {
-		System.out.println("ENTER:> CarParkDataConverter:convertCsv");
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Entering convertCsv(%s)", data);
+		} else {
+			LOGGER.info("Entering convertCsv()");
+		}
 		List<Map<String, Object>> csvFileData = new LinkedList<Map<String, Object>>();
 		Reader bufferedReader = new StringReader(data);
 		ICsvMapReader mapReader = new CsvMapReader(bufferedReader, CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
@@ -37,16 +46,16 @@ public class CarParkDataConverter {
 			while ((record = mapReader.read(csvHeaders, processors)) != null) {
 				csvFileData.add(record);
 			}
-		} catch(IOException e){
-			System.out.println("ERROR:> CarParkDataConverter:convertCsv: " + e);
-			throw e;
-		}
-		finally {
+		}finally {
 			if (mapReader != null) {
 				mapReader.close();
 			}
+			if (LOGGER.isTraceEnabled()) {
+				LOGGER.tracef("Leaving convertCsv(): %s", csvFileData);
+			} else {
+				LOGGER.info("Leaving convertCsv()");
+			}
 		}
-		System.out.println("EXIT:> CarParkDataConverter:convertCsv:\n " + csvFileData);
 		return csvFileData;
 	}
 	

@@ -3,6 +3,7 @@
  */
 package pl.pikopl.openwro.carparks.controller;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,8 @@ public class CarParkController {
 	@Autowired
 	private CarParkRepository carParkRep;
 	
+	protected static final Logger LOGGER = Logger.getLogger(CarParkController.class);
+	
 	/**
 	 * Requests a list of all data from car park load
 	 * 
@@ -30,7 +33,14 @@ public class CarParkController {
 	 */
 	@RequestMapping(value = "/carParks", method = RequestMethod.GET)
 	public Iterable<CarPark> getAllCarPark() {
-		return carParkRep.findAll();
+		LOGGER.info("Entering getAllCarPark()");
+		final Iterable<CarPark> allCarkParks = carParkRep.findAll();
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving getAllCarPark(): %s", allCarkParks);
+		} else {
+			LOGGER.info("Leaving getAllCarPark()");
+		}
+		return allCarkParks;
 	}
 	
 	/**
@@ -42,7 +52,14 @@ public class CarParkController {
 	 * @return
 	 */
 	@RequestMapping(value = "/carParks/{name}", method = RequestMethod.GET)
-	public CarPark getCarParkLoad(@PathVariable final String name) {
-		return carParkRep.findByName(name);
+	public CarPark getCarPark(@PathVariable final String name) {
+		LOGGER.infof("Entering getCarPark(%s)", name);
+		final CarPark carPark = carParkRep.findByName(name);
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving getCarPark(): %s", carPark);
+		} else {
+			LOGGER.infof("Leaving getCarPark()");
+		}
+		return carPark;
 	}
 }

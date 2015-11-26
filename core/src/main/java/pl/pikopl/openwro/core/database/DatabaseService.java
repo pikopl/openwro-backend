@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.sql.Timestamp;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +33,25 @@ public class DatabaseService {
 	@Autowired
 	private CarParkRepository carParkRepo;
 	
+	protected static final Logger LOGGER = Logger.getLogger(DatabaseService.class);
+	
 	public void fillCarkParkData(final List<Map<String, Object>> data){
-		System.out.println("ENTER:> DatabaseFiller.fillCarkParkData");
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Entering fillCarkParkData: %s", data);
+		} else {
+			LOGGER.info("Entering fillCarkParkData");
+		}
 		fillCarParkTable();
 		fillCarkParkLoadTable(data);
-		System.out.println("EXIT:> DatabaseFiller.fillCarkParkData");
+		LOGGER.info("Leaving fillCarkParkData");
 	}
 	
 	protected void fillCarkParkLoadTable(final List<Map<String, Object>> data){
-		System.out.println("ENTER:> DatabaseFiller.fillCarkParkLoadTable");
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Entering fillCarkParkLoadTable: %s", data);
+		} else {
+			LOGGER.info("Entering fillCarkParkLoadTable");
+		}
 		for (Map<String, Object> record : data) {
 			
 			try {
@@ -60,27 +71,32 @@ public class DatabaseService {
 				carParkLoad.setCarPark(carPark);
 				carParkLoadRepo.save(carParkLoad);
 			} catch (Exception e) {
-				System.out.println("ANY:> DatabaseFiller.fillCarkParkLoadTable" + e);
-			}	
-			System.out.println("ANY:> DatabaseFiller.fillCarkParkLoadTable:successfully save record with timestamp " + record.get("Czas_Rejestracji"));
+				LOGGER.errorf("Exception in fillCarkParkLoadTable for data (%s, %s)", record.get("Czas_Rejestracji"), record.get("Nazwa"), e);
+				continue;
+			}
+			LOGGER.debugf("fillCarkParkLoadTable successfully save record (%s, %s)", record.get("Czas_Rejestracji"), record.get("Nazwa"));
 		}
-		System.out.println("EXIT:> DatabaseFiller.fillCarkParkLoadTable");
+		LOGGER.info("Leaving fillCarkParkLoadTable");
 	}
 	
 	protected Timestamp parseTimestamp(final String timestampString) throws ParseException {
-		System.out.println("ENTER:> DatabaseFiller.parseTimestamp");
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Entering parseTimestamp: %s", timestampString);
+		}
 		//TODO: move string to property file
 		//Locale.FRENCH solves problem with noon date inserting to the DB as 00.
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS",  Locale.FRENCH);
 	    Date parsedDate = null;
-		try {
+		try { //TODO: get rid of exception, handle in fillCarkParkLoadTable
 			parsedDate = dateFormat.parse(timestampString);
 		} catch (ParseException e) {
-			System.out.println("ERROR:> DatabaseFiller.parseTimestamp:" + e);
+			LOGGER.error("Exception in parseTimestamp", e);
 			throw e;
 		}
 	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-		System.out.println("EXIT:> DatabaseFiller.parseTimestamp:result " + timestamp);
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving parseTimestamp: %s", timestamp);
+		}
 		return timestamp;
 	}
 	
@@ -90,13 +106,13 @@ public class DatabaseService {
 	 * Fills CarPark table with hardcoded values by now
 	 */
 	protected void fillCarParkTable(){
-		System.out.println("ENTER:> DatabaseFiller.fillCarParkTable");
-		
+		LOGGER.info("Entering fillCarParkTable");
 		if (carParkRepo.findByName("Renoma") == null) {
 			CarPark carPark1 = new CarPark();
 			carPark1.setName("Renoma");
 			carPark1.setCapacity(630L);
 			carParkRepo.save(carPark1);
+			LOGGER.info("fillCarParkTable: inserted Renoma cark park");
 		}
 
 		if (carParkRepo.findByName("ul. œw. Antoniego") == null) {
@@ -104,6 +120,7 @@ public class DatabaseService {
 			carPark2.setName("ul. œw. Antoniego");
 			carPark2.setCapacity(140L);
 			carParkRepo.save(carPark2);
+			LOGGER.info("fillCarParkTable: inserted ul. œw. Antoniego cark park");
 		}
 
 		if (carParkRepo.findByName("Nowy Targ") == null) {
@@ -111,8 +128,8 @@ public class DatabaseService {
 			carPark3.setName("Nowy Targ");
 			carPark3.setCapacity(334L);
 			carParkRepo.save(carPark3);
+			LOGGER.info("fillCarParkTable: inserted Nowy Targ cark park");
 		}
-
-		System.out.println("EXIT:> DatabaseFiller.fillCarParkTable");
+		LOGGER.info("Leaving fillCarParkTable");
 	}
 }

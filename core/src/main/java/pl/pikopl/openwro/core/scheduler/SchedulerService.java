@@ -17,6 +17,8 @@ import pl.pikopl.openwro.core.dataconverter.CarParkDataConverter;
 import pl.pikopl.openwro.resourceconnector.http.HttpConnector;
 import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;
 
+import org.jboss.logging.Logger;
+
 /**
  * @author kopajczy
  *
@@ -27,28 +29,32 @@ public class SchedulerService {
 	@Autowired
 	private DatabaseService dbService;
 	
+	protected static final Logger LOGGER = Logger.getLogger(SchedulerService.class);
+	
 	final private static String RESOURCE_URL = "http://www.wroclaw.pl/open-data/opendata/its/parkingi/parkingi.csv";
 	
 	@Scheduled(cron="0 0 4 * * ?")
 	public void importData(){
-		System.out.println("ENTER:> " + this.getClass() + ":importData");
+		LOGGER.info("Entering importData()");
 		Long resultCode = -1L;
 		try {
 			final String result = HttpConnector.sendGET(RESOURCE_URL);
-			System.out.println("ANY:> " + this.getClass() + ":importData:result:" + result);
+			if (LOGGER.isTraceEnabled()) {
+				LOGGER.tracef("After getting string result in importData(): {}", result);
+			}
 			List<Map<String, Object>> data = CarParkDataConverter.convertCsv(result);
 			dbService.fillCarkParkData(data);
 			resultCode = 200L;
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(e);
 		} catch (HttpRequestFailureException e) {
+			LOGGER.error("HttpRequestFailureException occurs", e);
 			resultCode = (long) e.getStatusCode();
-			e.printStackTrace();
+		} catch (Exception e){
+			LOGGER.error("Other exception occurs", e);
 		}
-		System.out.println("EXIT:> " + this.getClass() + ":importData:resultCode:" + resultCode);
+		LOGGER.infof("Leaving importData(): {}", resultCode);
 	}
 }
