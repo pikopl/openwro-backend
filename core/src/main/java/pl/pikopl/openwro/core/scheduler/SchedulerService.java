@@ -40,7 +40,7 @@ public class SchedulerService {
 		try {
 			final String result = HttpConnector.sendGET(RESOURCE_URL);
 			if (LOGGER.isTraceEnabled()) {
-				LOGGER.tracef("After getting string result in importData(): {}", result);
+				LOGGER.tracef("After getting string result in importData(): %s", result);
 			}
 			List<Map<String, Object>> data = CarParkDataConverter.convertCsv(result);
 			dbService.fillCarkParkData(data);
@@ -55,6 +55,6 @@ public class SchedulerService {
 		} catch (Exception e){
 			LOGGER.error("Other exception occurs", e);
 		}
-		LOGGER.infof("Leaving importData(): {}", resultCode);
+		LOGGER.infof("Leaving importData(): %s", resultCode);
 	}
 }
