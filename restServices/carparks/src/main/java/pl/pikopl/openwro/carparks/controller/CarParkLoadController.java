@@ -47,6 +47,22 @@ public class CarParkLoadController {
 	}
 	
 	/**
+	 * Requests a count of all data from car park load
+	 * 
+	 * Request example:
+	 * GET http://localhost:8080/carparks/carParkLoadsCount/
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/carParkLoadsCount", method = RequestMethod.GET)
+	public Long getAllCarParkLoadsCount() {
+		LOGGER.info("Entering getAllCarParkLoadsCount()");
+		final long allCarkParkLoadsCount = carParkLoadRep.count();
+		LOGGER.infof("Leaving getAllCarParkLoadsCount(): %s", allCarkParkLoadsCount);
+		return allCarkParkLoadsCount;
+	}
+	
+	/**
 	 * Requests a list of all data from given car park
 	 * 
 	 * Request example:

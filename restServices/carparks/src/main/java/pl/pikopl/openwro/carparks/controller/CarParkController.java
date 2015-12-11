@@ -24,7 +24,7 @@ public class CarParkController {
 	protected static final Logger LOGGER = Logger.getLogger(CarParkController.class);
 	
 	/**
-	 * Requests a list of all data from car park load
+	 * Requests a list of all data from car park
 	 * 
 	 * Request example:
 	 * GET http://localhost:8080/carparks/carParks/
@@ -41,6 +41,22 @@ public class CarParkController {
 			LOGGER.info("Leaving getAllCarPark()");
 		}
 		return allCarkParks;
+	}
+	
+	/**
+	 * Requests a count of all data from car park
+	 * 
+	 * Request example:
+	 * GET http://localhost:8080/carparks/carParksCount/
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/carParksCount", method = RequestMethod.GET)
+	public Long getAllCarParkCount() {
+		LOGGER.info("Entering getAllCarParkCount()");
+		final Long allCarkParksCount = carParkRep.count();
+		LOGGER.infof("Leaving getAllCarParkCount(): %s", allCarkParksCount);
+		return allCarkParksCount;
 	}
 	
 	/**
