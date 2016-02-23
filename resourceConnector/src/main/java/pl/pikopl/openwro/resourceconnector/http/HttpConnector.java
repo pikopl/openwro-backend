@@ -21,6 +21,11 @@ import org.jboss.logging.Logger;
 public class HttpConnector {
 	
 	protected static final Logger LOGGER = Logger.getLogger(HttpConnector.class);
+	
+	/**
+	 * This charset is used for encoding data on wroclaw.pl
+	 */
+	protected static final String STREAM_CHARSET = "windows-1250";
 
 	public static String sendGET(final String url)
 			throws ClientProtocolException, IOException,
@@ -35,7 +40,7 @@ public class HttpConnector {
 			throw new HttpRequestFailureException(statusCode);
 		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				httpResponse.getEntity().getContent()));
+				httpResponse.getEntity().getContent(), STREAM_CHARSET));
 
 		String inputLine;
 		StringBuffer response = new StringBuffer();

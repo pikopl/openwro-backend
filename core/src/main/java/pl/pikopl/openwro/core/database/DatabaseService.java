@@ -41,7 +41,6 @@ public class DatabaseService {
 		} else {
 			LOGGER.info("Entering fillCarkParkData");
 		}
-		fillCarParkTable();
 		fillCarkParkLoadTable(data);
 		LOGGER.info("Leaving fillCarkParkData");
 	}
@@ -61,13 +60,7 @@ public class DatabaseService {
 				carParkLoad.setCarInAmount(Long.parseLong((String) record.get("Liczba_Poj_Wjezdzajacych")));
 				carParkLoad.setCarOutAmount(Long.parseLong((String) record.get("Liczba_Poj_Wyjezdzajacych")));
 				carParkLoad.setTimestamp(parseTimestamp((String) record.get("Czas_Rejestracji")));
-				CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa")); //TODO: locale
-				if (carPark == null) { //workaround for lacking locale and parking not match
-					carPark = new CarPark();
-					carPark.setCarParkid(2L);
-					carPark.setName("ul. œw. Antoniego");
-					carPark.setCapacity(140L);
-				}
+				CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa"));
 				carParkLoad.setCarPark(carPark);
 				carParkLoadRepo.save(carParkLoad);
 			} catch (Exception e) {
@@ -98,38 +91,5 @@ public class DatabaseService {
 			LOGGER.tracef("Leaving parseTimestamp: %s", timestamp);
 		}
 		return timestamp;
-	}
-	
-	
-	
-	/**
-	 * Fills CarPark table with hardcoded values by now
-	 */
-	protected void fillCarParkTable(){
-		LOGGER.info("Entering fillCarParkTable");
-		if (carParkRepo.findByName("Renoma") == null) {
-			CarPark carPark1 = new CarPark();
-			carPark1.setName("Renoma");
-			carPark1.setCapacity(630L);
-			carParkRepo.save(carPark1);
-			LOGGER.info("fillCarParkTable: inserted Renoma cark park");
-		}
-
-		if (carParkRepo.findByName("ul. œw. Antoniego") == null) {
-			CarPark carPark2 = new CarPark();
-			carPark2.setName("ul. œw. Antoniego");
-			carPark2.setCapacity(140L);
-			carParkRepo.save(carPark2);
-			LOGGER.info("fillCarParkTable: inserted ul. œw. Antoniego cark park");
-		}
-
-		if (carParkRepo.findByName("Nowy Targ") == null) {
-			CarPark carPark3 = new CarPark();
-			carPark3.setName("Nowy Targ");
-			carPark3.setCapacity(334L);
-			carParkRepo.save(carPark3);
-			LOGGER.info("fillCarParkTable: inserted Nowy Targ cark park");
-		}
-		LOGGER.info("Leaving fillCarParkTable");
 	}
 }
