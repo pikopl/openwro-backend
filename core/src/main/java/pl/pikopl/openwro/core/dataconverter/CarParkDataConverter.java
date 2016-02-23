@@ -17,8 +17,6 @@ import org.supercsv.io.CsvMapReader;
 import org.supercsv.io.ICsvMapReader;
 import org.supercsv.prefs.CsvPreference;
 
-import pl.pikopl.openwro.core.database.DatabaseService;
-
 /**
  * @author kopajczy
  *

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pl.pikopl.openwro.core.database.DatabaseService;
 import pl.pikopl.openwro.core.dataconverter.CarParkDataConverter;
-import pl.pikopl.openwro.core.scheduler.SchedulerService;
 import pl.pikopl.openwro.resourceconnector.http.HttpConnector;
 import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;
 
