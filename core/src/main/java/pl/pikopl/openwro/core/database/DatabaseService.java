@@ -61,6 +61,9 @@ public class DatabaseService {
 				carParkLoad.setCarOutAmount(Long.parseLong((String) record.get("Liczba_Poj_Wyjezdzajacych")));
 				carParkLoad.setTimestamp(parseTimestamp((String) record.get("Czas_Rejestracji")));
 				CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa"));
+				if (carPark == null) { // add dynamically new car park
+					carPark = addNewCarPark((String) record.get("Nazwa"));
+				}
 				carParkLoad.setCarPark(carPark);
 				carParkLoadRepo.save(carParkLoad);
 			} catch (Exception e) {
@@ -70,6 +73,15 @@ public class DatabaseService {
 			LOGGER.debugf("fillCarkParkLoadTable successfully save record (%s, %s)", record.get("Czas_Rejestracji"), record.get("Nazwa"));
 		}
 		LOGGER.info("Leaving fillCarkParkLoadTable");
+	}
+	
+	protected CarPark addNewCarPark(final String name){
+		LOGGER.infof("Entering addNewCarPark with name: %s", name);
+		final CarPark carPark = new CarPark();
+		carPark.setName(name);
+		carPark.setCapacity(-1L);
+		LOGGER.infof("Exiting/saving addNewCarPark");
+		return carParkRepo.save(carPark);
 	}
 	
 	protected Timestamp parseTimestamp(final String timestampString) throws ParseException {
