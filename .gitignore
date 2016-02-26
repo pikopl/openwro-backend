@@ -17,3 +17,4 @@ restServices/carparks/target
 core/target/
 core/.project
 core/bin/
+core/.classpath
