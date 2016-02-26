@@ -14,3 +14,6 @@ restServices/carparks/.project
 restServices/carparks/.settings/
 restServices/carparks/.classpath
 restServices/carparks/target
+core/target/
+core/.project
+core/bin/
