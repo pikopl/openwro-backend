@@ -6,10 +6,11 @@
   <packaging>pom</packaging>
   <name>OpenWro ${project.version}</name>
   <modules>
-  		<module>core</module>
+  	<module>core</module>
 		<module>dbService</module>
 		<module>restServices</module>
 		<module>resourceConnector</module>
+		<module>dataConverter</module>
   </modules>
   
   	<properties>

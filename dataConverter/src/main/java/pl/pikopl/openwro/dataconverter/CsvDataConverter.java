@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pl.pikopl.openwro.core.dataconverter;
+package pl.pikopl.openwro.dataconverter;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -21,15 +21,15 @@ import org.supercsv.prefs.CsvPreference;
  * @author kopajczy
  *
  */
-public class CarParkDataConverter {
+public class CsvDataConverter {
 	
-	protected static final Logger LOGGER = Logger.getLogger(CarParkDataConverter.class);
+	protected static final Logger LOGGER = Logger.getLogger(CsvDataConverter.class);
 	
-	public static List<Map<String, Object>> convertCsv(final String data) throws IOException {
+	public static List<Map<String, Object>> convert(final String data) throws IOException {
 		if (LOGGER.isTraceEnabled()) {
-			LOGGER.tracef("Entering convertCsv(%s)", data);
+			LOGGER.tracef("Entering convert(%s)", data);
 		} else {
-			LOGGER.info("Entering convertCsv()");
+			LOGGER.info("Entering convert()");
 		}
 		List<Map<String, Object>> csvFileData = new LinkedList<Map<String, Object>>();
 		Reader bufferedReader = new StringReader(data);
@@ -49,9 +49,9 @@ public class CarParkDataConverter {
 				mapReader.close();
 			}
 			if (LOGGER.isTraceEnabled()) {
-				LOGGER.tracef("Leaving convertCsv(): %s", csvFileData);
+				LOGGER.tracef("Leaving convert(): %s", csvFileData);
 			} else {
-				LOGGER.info("Leaving convertCsv()");
+				LOGGER.info("Leaving convert()");
 			}
 		}
 		return csvFileData;
