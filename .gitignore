@@ -1,9 +1,9 @@
 .settings/
 .project
-dbService/.classpath
-dbService/.project
-dbService/.settings/
-dbService/target/
+dbServiceCarParks/.classpath
+dbServiceCarParks/.project
+dbServiceCarParks/.settings/
+dbServiceCarParks/target/
 resourceConnector/.classpath
 resourceConnector/.project
 resourceConnector/.settings/
