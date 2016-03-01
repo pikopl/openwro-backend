@@ -5,9 +5,9 @@
     <artifactId>openwro</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <name>OpenWro ${project.version} :: DB Service</name>
+  <name>OpenWro ${project.version} :: DB Service :: Car Parks</name>
   <groupId>pl.pikopl.openwro</groupId>
-  <artifactId>dbService</artifactId>
+  <artifactId>dbServiceCarParks</artifactId>
   
   	<properties>
 		<spring.version>4.0.2.RELEASE</spring.version>

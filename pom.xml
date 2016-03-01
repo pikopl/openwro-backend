@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <name>OpenWro ${project.version}</name>
   <modules>
-		<module>dbService</module>
+		<module>dbServiceCarParks</module>
 		<module>apps</module>
 		<module>resourceConnector</module>
 		<module>dataConverter</module>
