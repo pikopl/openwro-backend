@@ -9,7 +9,7 @@
 	<groupId>pl.pikopl.openwro</groupId>
 	<artifactId>restServices</artifactId>
 	<packaging>pom</packaging>
-	<name>OpenWro ${project.version} :: REST Services</name>
+	<name>OpenWro ${project.version} :: Apps</name>
 	<modules>
 		<module>carparks</module>
 	</modules>

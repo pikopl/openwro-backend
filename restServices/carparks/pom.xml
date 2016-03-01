@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>carparks</artifactId>
 	<packaging>war</packaging>
-	<name>OpenWro ${project.version} :: REST Services :: Car Parks</name>
+	<name>OpenWro ${project.version} :: Apps :: Car Parks</name>
 	<dependencies>
 		<dependency>
 			<groupId>pl.pikopl.openwro</groupId>
