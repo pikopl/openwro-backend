@@ -18,3 +18,4 @@ apps/carparks/.project
 apps/carparks/.settings/
 apps/carparks/.classpath
 apps/carparks/target
+apps/carparks/bin
