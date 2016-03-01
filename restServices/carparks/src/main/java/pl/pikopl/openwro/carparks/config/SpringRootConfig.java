@@ -8,11 +8,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @Configuration
 @EnableScheduling
-@ComponentScan({ 	"pl.pikopl.openwro.carparks.controller", 
+@ComponentScan({ 	"pl.pikopl.openwro.carparks.rest.controller", 
 					"pl.pikopl.openwro.dbservice", 
 					"pl.pikopl.openwro.carparks.config",
-					"pl.pikopl.openwro.core.database",
-					"pl.pikopl.openwro.core.scheduler"})
+					"pl.pikopl.openwro.carparks.scheduler"})
 public class SpringRootConfig {
 	
 }
