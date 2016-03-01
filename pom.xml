@@ -7,7 +7,7 @@
   <name>OpenWro ${project.version}</name>
   <modules>
 		<module>dbService</module>
-		<module>restServices</module>
+		<module>apps</module>
 		<module>resourceConnector</module>
 		<module>dataConverter</module>
   </modules>

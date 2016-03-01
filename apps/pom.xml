@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>pl.pikopl.openwro</groupId>
-	<artifactId>restServices</artifactId>
+	<artifactId>apps</artifactId>
 	<packaging>pom</packaging>
 	<name>OpenWro ${project.version} :: Apps</name>
 	<modules>

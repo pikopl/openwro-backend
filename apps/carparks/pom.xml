@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>pl.pikopl.openwro</groupId>
-		<artifactId>restServices</artifactId>
+		<artifactId>apps</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>carparks</artifactId>
