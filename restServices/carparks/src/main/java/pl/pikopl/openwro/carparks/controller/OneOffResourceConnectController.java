@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.pikopl.openwro.core.database.DatabaseService;
+import pl.pikopl.openwro.dbservice.DatabaseService;
 import pl.pikopl.openwro.dataconverter.CsvDataConverter;
 import pl.pikopl.openwro.resourceconnector.http.HttpConnector;
 import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;

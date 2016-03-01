@@ -1,15 +1,15 @@
 /**
  * 
  */
-package pl.pikopl.openwro.core.database;
+package pl.pikopl.openwro.dbservice;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.sql.Timestamp;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

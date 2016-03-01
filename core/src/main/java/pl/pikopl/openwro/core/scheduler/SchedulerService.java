@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import pl.pikopl.openwro.core.database.DatabaseService;
+import pl.pikopl.openwro.dbservice.DatabaseService;
 import pl.pikopl.openwro.dataconverter.CsvDataConverter;
 import pl.pikopl.openwro.resourceconnector.http.HttpConnector;
 import pl.pikopl.openwro.resourceconnector.http.HttpRequestFailureException;
