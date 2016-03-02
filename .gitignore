@@ -4,6 +4,7 @@ dbServiceCarParks/.classpath
 dbServiceCarParks/.project
 dbServiceCarParks/.settings/
 dbServiceCarParks/target/
+dbServiceCarParks/bin/
 resourceConnector/.classpath
 resourceConnector/.project
 resourceConnector/.settings/
@@ -12,10 +13,11 @@ dataConverter/.classpath
 dataConverter/.project
 dataConverter/.settings/
 dataConverter/target/
+dataConverter/bin/
 apps/.project
 apps/.settings/
 apps/carparks/.project
 apps/carparks/.settings/
 apps/carparks/.classpath
-apps/carparks/target
-apps/carparks/bin
+apps/carparks/target/
+apps/carparks/bin/
