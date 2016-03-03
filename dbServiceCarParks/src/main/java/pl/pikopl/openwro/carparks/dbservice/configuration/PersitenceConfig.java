@@ -22,7 +22,7 @@ import com.zaxxer.hikari.HikariDataSource;
  * TODO Java doc
  */
 @Configuration
-@EnableJpaRepositories(basePackages = { "pl.pikopl.openwro.dbservice.repository" })
+@EnableJpaRepositories(basePackages = { "pl.pikopl.openwro.carparks.dbservice.repository" })
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 public class PersitenceConfig {
@@ -45,7 +45,7 @@ public class PersitenceConfig {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(dataSource);
 		entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-		entityManagerFactoryBean.setPackagesToScan("pl.pikopl.openwro.dbservice");
+		entityManagerFactoryBean.setPackagesToScan("pl.pikopl.openwro.carparks.dbservice");
 
 		Properties jpaProperties = new Properties();
 
