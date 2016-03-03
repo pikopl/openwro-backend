@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pl.pikopl.openwro.dbservice.repository;
+package pl.pikopl.openwro.carparks.dbservice.repository;
 
 import javax.transaction.Transactional;
 
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import pl.pikopl.openwro.dbservice.model.CarPark;
+import pl.pikopl.openwro.carparks.dbservice.model.CarPark;
 
 public interface CarParkRepository extends PagingAndSortingRepository<CarPark, Long>{
 	

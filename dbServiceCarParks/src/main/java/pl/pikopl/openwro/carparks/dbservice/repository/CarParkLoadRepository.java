@@ -1,4 +1,4 @@
-package pl.pikopl.openwro.dbservice.repository;
+package pl.pikopl.openwro.carparks.dbservice.repository;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import pl.pikopl.openwro.dbservice.model.CarPark;
-import pl.pikopl.openwro.dbservice.model.CarParkLoad;
+import pl.pikopl.openwro.carparks.dbservice.model.CarPark;
+import pl.pikopl.openwro.carparks.dbservice.model.CarParkLoad;
 
 public interface CarParkLoadRepository extends PagingAndSortingRepository<CarParkLoad, Long>{
 	

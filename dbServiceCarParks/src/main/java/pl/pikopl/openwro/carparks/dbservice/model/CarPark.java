@@ -1,4 +1,4 @@
-package pl.pikopl.openwro.dbservice.model;
+package pl.pikopl.openwro.carparks.dbservice.model;
 
 import java.util.Collection;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pl.pikopl.openwro.dbservice;
+package pl.pikopl.openwro.carparks.dbservice;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -15,10 +15,10 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pl.pikopl.openwro.dbservice.model.CarPark;
-import pl.pikopl.openwro.dbservice.model.CarParkLoad;
-import pl.pikopl.openwro.dbservice.repository.CarParkLoadRepository;
-import pl.pikopl.openwro.dbservice.repository.CarParkRepository;
+import pl.pikopl.openwro.carparks.dbservice.model.CarPark;
+import pl.pikopl.openwro.carparks.dbservice.model.CarParkLoad;
+import pl.pikopl.openwro.carparks.dbservice.repository.CarParkLoadRepository;
+import pl.pikopl.openwro.carparks.dbservice.repository.CarParkRepository;
 
 /**
  * @author kopajczy

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.pikopl.openwro.dbservice.model.CarParkLoad;
-import pl.pikopl.openwro.dbservice.model.CarPark;
-import pl.pikopl.openwro.dbservice.repository.CarParkLoadRepository;
-import pl.pikopl.openwro.dbservice.repository.CarParkRepository;
+import pl.pikopl.openwro.carparks.dbservice.model.CarPark;
+import pl.pikopl.openwro.carparks.dbservice.model.CarParkLoad;
+import pl.pikopl.openwro.carparks.dbservice.repository.CarParkLoadRepository;
+import pl.pikopl.openwro.carparks.dbservice.repository.CarParkRepository;
 
 /**
  * Rest controller for CarParkLoad model. Provides REST API.

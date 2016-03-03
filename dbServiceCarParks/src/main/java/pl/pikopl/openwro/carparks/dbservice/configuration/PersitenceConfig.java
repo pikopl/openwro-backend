@@ -1,4 +1,4 @@
-package pl.pikopl.openwro.dbservice.configuration;
+package pl.pikopl.openwro.carparks.dbservice.configuration;
 
 import java.util.Properties;
 
