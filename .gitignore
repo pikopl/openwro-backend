@@ -5,6 +5,11 @@ dbServiceCarParks/.project
 dbServiceCarParks/.settings/
 dbServiceCarParks/target/
 dbServiceCarParks/bin/
+dbServiceWeather/.classpath
+dbServiceWeather/.project
+dbServiceWeather/.settings/
+dbServiceWeather/target/
+dbServiceWeather/bin/
 resourceConnector/.classpath
 resourceConnector/.project
 resourceConnector/.settings/
