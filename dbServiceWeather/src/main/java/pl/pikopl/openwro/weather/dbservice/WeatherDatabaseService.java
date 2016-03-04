@@ -34,6 +34,16 @@ public class WeatherDatabaseService {
 	
 	protected static final Logger LOGGER = Logger.getLogger(WeatherDatabaseService.class);
 	
+	public void fillWeatherData(final List<Map<String, Object>> data){
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Entering fillWeatherData: %s", data);
+		} else {
+			LOGGER.info("Entering fillWeatherData");
+		}
+		fillWeatherDataTable(data);
+		LOGGER.info("Leaving fillWeatherData");
+	}
+	
 	protected void fillWeatherDataTable(final List<Map<String, Object>> data){
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Entering fillWeatherDataTable: %s", data);
