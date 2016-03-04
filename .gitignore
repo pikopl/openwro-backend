@@ -26,3 +26,8 @@ apps/carparks/.settings/
 apps/carparks/.classpath
 apps/carparks/target/
 apps/carparks/bin/
+apps/weather/.project
+apps/weather/.settings/
+apps/weather/.classpath
+apps/weather/target/
+apps/weather/bin/
