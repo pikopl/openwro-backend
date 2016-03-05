@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.jboss.logging.Logger;
@@ -91,7 +92,7 @@ public class WeatherDatabaseService {
 		}
 		//TODO: move string to property file
 		//Locale.FRENCH solves problem with noon date inserting to the DB as 00.
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy HH:mm:ss a"/*,  Locale.FRENCH*/);
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS",  Locale.FRENCH);
 	    Date parsedDate = null;
 		try { //TODO: get rid of exception, handle in fillCarkParkLoadTable
 			parsedDate = dateFormat.parse(timestampString);
