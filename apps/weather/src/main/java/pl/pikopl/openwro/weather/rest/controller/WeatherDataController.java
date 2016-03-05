@@ -67,7 +67,7 @@ public class WeatherDataController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/carParkLoads/{name}", method = RequestMethod.GET)
+	@RequestMapping(value = "/weatherData/{name}", method = RequestMethod.GET)
 	public Iterable<WeatherData> getWeatherData(@PathVariable final String name) {
 		LOGGER.infof("Entering getWeatherData(%s)", name);
 		final WeatherStation weatherStation = weatherStationRepo.findByName(name);
