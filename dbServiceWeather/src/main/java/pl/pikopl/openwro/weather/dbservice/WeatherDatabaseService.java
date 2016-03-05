@@ -70,7 +70,7 @@ public class WeatherDatabaseService {
 				weatherData.setWeatherStation(weatherStation);
 				weatherDataRepo.save(weatherData);
 			} catch (Exception e) {
-				LOGGER.errorf("Exception in fillWeatherDataTable for data (%s, %s)", record.get("Czas_Rejestracji"), record.get("Lokalizacja_Opis"), e);
+				LOGGER.errorf("Exception in fillWeatherDataTable for data (%s, %s): %s", record.get("Czas_Rejestracji"), record.get("Lokalizacja_Opis"), e);
 				continue;
 			}
 			LOGGER.debugf("fillWeatherDataTable successfully save record (%s, %s)", record.get("Czas_Rejestracji"), record.get("Lokalizacja_Opis"));
