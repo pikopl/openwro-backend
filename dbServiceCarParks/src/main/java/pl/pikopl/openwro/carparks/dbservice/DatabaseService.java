@@ -67,7 +67,7 @@ public class DatabaseService {
 				carParkLoad.setCarPark(carPark);
 				carParkLoadRepo.save(carParkLoad);
 			} catch (Exception e) {
-				LOGGER.errorf("Exception in fillCarkParkLoadTable for data (%s, %s)", record.get("Czas_Rejestracji"), record.get("Nazwa"), e);
+				LOGGER.errorf("Exception in fillCarkParkLoadTable for data (%s, %s): %s", record.get("Czas_Rejestracji"), record.get("Nazwa"), e);
 				continue;
 			}
 			LOGGER.debugf("fillCarkParkLoadTable successfully save record (%s, %s)", record.get("Czas_Rejestracji"), record.get("Nazwa"));
