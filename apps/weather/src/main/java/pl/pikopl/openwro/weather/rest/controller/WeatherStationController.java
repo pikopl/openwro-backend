@@ -61,7 +61,7 @@ public class WeatherStationController {
 	}
 	
 	/**
-	 * Requests a list of all data from given car park
+	 * Requests a list of all data from given weather station
 	 * 
 	 * Request example:
 	 * GET http://localhost:8080/weather/weatherStation/ESTAKADA GADOWIANKA
