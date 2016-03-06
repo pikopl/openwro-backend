@@ -7,6 +7,7 @@
   <name>OpenWro ${project.version}</name>
   <modules>
 		<module>dbServiceCarParks</module>
+		<module>dbServiceWeather</module>
 		<module>apps</module>
 		<module>resourceConnector</module>
 		<module>dataConverter</module>

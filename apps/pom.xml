@@ -12,6 +12,7 @@
 	<name>OpenWro ${project.version} :: Apps</name>
 	<modules>
 		<module>carparks</module>
+		<module>weather</module>
 	</modules>
 
 	<build>
