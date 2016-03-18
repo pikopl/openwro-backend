@@ -56,9 +56,9 @@ public class DatabaseService {
 			try {
 				CarParkLoad carParkLoad = new CarParkLoad();
 				//TODO: move strings to property file
-				carParkLoad.setFreePlaceAmount(Long.parseLong((String) record.get("Liczba_Wolnych_Miejsc")));
-				carParkLoad.setCarInAmount(Long.parseLong((String) record.get("Liczba_Poj_Wjezdzajacych")));
-				carParkLoad.setCarOutAmount(Long.parseLong((String) record.get("Liczba_Poj_Wyjezdzajacych")));
+				carParkLoad.setFreePlaceAmount(parseLong((String) record.get("Liczba_Wolnych_Miejsc")));
+				carParkLoad.setCarInAmount(parseLong((String) record.get("Liczba_Poj_Wjezdzajacych")));
+				carParkLoad.setCarOutAmount(parseLong((String) record.get("Liczba_Poj_Wyjezdzajacych")));
 				carParkLoad.setTimestamp(parseTimestamp((String) record.get("Czas_Rejestracji")));
 				CarPark carPark = carParkRepo.findByName((String) record.get("Nazwa"));
 				if (carPark == null) { // add dynamically new car park
@@ -92,6 +92,7 @@ public class DatabaseService {
 		//Locale.FRENCH solves problem with noon date inserting to the DB as 00.
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS",  Locale.FRENCH);
 	    Date parsedDate = null;
+	    //TODO: check if timestampString != null
 		try { //TODO: get rid of exception, handle in fillCarkParkLoadTable
 			parsedDate = dateFormat.parse(timestampString);
 		} catch (ParseException e) {
@@ -103,5 +104,19 @@ public class DatabaseService {
 			LOGGER.tracef("Leaving parseTimestamp: %s", timestamp);
 		}
 		return timestamp;
+	}
+	
+	protected Long parseLong(final String longString){
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Entering parseLong: %s", longString);
+		}
+		Long number = null;
+		if (longString != null) {
+			number = Long.parseLong(longString);
+		}
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving parseLong: %s", number);
+		}
+		return number;
 	}
 }
