@@ -57,11 +57,11 @@ public class WeatherDatabaseService {
 				WeatherData weatherData = new WeatherData();
 				//TODO: move strings to property file
 				weatherData.setTimestamp(parseTimestamp((String) record.get("Czas_Rejestracji")));
-				weatherData.setWindSpeed(Double.parseDouble((String) record.get("Wiatr_V")));
-				weatherData.setWindDirection(Double.parseDouble((String) record.get("Wiatr_Kierunek")));
-				weatherData.setHumidity(Double.parseDouble((String) record.get("Wilgotnosc")));
-				weatherData.setAirTemperature(Double.parseDouble((String) record.get("T_Powietrza")));
-				weatherData.setGroundTemperature(Double.parseDouble((String) record.get("T_Grunt")));
+				weatherData.setWindSpeed(parseDouble((String) record.get("Wiatr_V")));
+				weatherData.setWindDirection(parseDouble((String) record.get("Wiatr_Kierunek")));
+				weatherData.setHumidity(parseDouble((String) record.get("Wilgotnosc")));
+				weatherData.setAirTemperature(parseDouble((String) record.get("T_Powietrza")));
+				weatherData.setGroundTemperature(parseDouble((String) record.get("T_Grunt")));
 				weatherData.setShowerType(ShowerType.valueOf(Integer.parseInt((String) record.get("Opad_Typ"))));
 				WeatherStation weatherStation = weatherStationRepo.findByName((String) record.get("Lokalizacja_Opis"));
 				if (weatherStation == null) { // add dynamically new weather station
@@ -94,6 +94,7 @@ public class WeatherDatabaseService {
 		//Locale.FRENCH solves problem with noon date inserting to the DB as 00.
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS",  Locale.FRENCH);
 	    Date parsedDate = null;
+	    //TODO: check if timestampString != null
 		try { //TODO: get rid of exception, handle in fillCarkParkLoadTable
 			parsedDate = dateFormat.parse(timestampString);
 		} catch (ParseException e) {
@@ -105,5 +106,19 @@ public class WeatherDatabaseService {
 			LOGGER.tracef("Leaving parseTimestamp: %s", timestamp);
 		}
 		return timestamp;
+	}
+	
+	protected Double parseDouble(final String doubleString){
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Entering parseDouble: %s", doubleString);
+		}
+		Double number = null;
+		if (doubleString != null) {
+			number = Double.parseDouble(doubleString);
+		}
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving parseDouble: %s", number);
+		}
+		return number;
 	}
 }
