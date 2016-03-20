@@ -14,6 +14,7 @@ import java.util.Map;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import pl.pikopl.openwro.weather.dbservice.model.ShowerType;
 import pl.pikopl.openwro.weather.dbservice.model.WeatherData;
@@ -113,7 +114,7 @@ public class WeatherDatabaseService {
 			LOGGER.tracef("Entering parseDouble: %s", doubleString);
 		}
 		Double number = null;
-		if (doubleString != null) {
+		if (doubleString != null && !doubleString.equals("")) {
 			number = Double.parseDouble(doubleString);
 		}
 		if (LOGGER.isTraceEnabled()) {
