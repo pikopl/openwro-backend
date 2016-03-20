@@ -111,7 +111,7 @@ public class DatabaseService {
 			LOGGER.tracef("Entering parseLong: %s", longString);
 		}
 		Long number = null;
-		if (longString != null) {
+		if (longString != null && !longString.equals("")) {
 			number = Long.parseLong(longString);
 		}
 		if (LOGGER.isTraceEnabled()) {
