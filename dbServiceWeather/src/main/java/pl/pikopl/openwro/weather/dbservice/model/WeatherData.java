@@ -35,24 +35,24 @@ public class WeatherData {
 	@Column(nullable=false)
 	private Timestamp timestamp;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Double windSpeed;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Double windDirection;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Double humidity;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Double airTemperature;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Double groundTemperature;
 	
 	@Transient
     private transient ShowerType showerType; //actual enum; not stored in db
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private int showerTypeCode; // enum code gets stored in db
 	
 	@PrePersist
