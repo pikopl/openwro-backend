@@ -3,14 +3,13 @@
  */
 package pl.pikopl.openwro.weather.dbservice.model;
 
-import javax.persistence.Entity;
-
 /**
  * @author kopajczy
  *
  */
 public enum ShowerType {
 	
+	UNKNOWN(-1),
 	NO_SHOWER(69),
 	RAIN(70),
 	SNOW(71),
