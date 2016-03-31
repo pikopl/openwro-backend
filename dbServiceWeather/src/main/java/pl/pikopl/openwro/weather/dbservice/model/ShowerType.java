@@ -11,9 +11,9 @@ public enum ShowerType {
 	
 	UNKNOWN(-1),
 	NO_SHOWER(69),
-	RAIN(70),
-	SNOW(71),
-	RAIN_AND_SNOW(72);
+	OCCASIONAL_RAIN(70),
+	CONSTANT_RAIN(71),
+	HEAVY_RAIN(72);
 	
 	private int code;
 
