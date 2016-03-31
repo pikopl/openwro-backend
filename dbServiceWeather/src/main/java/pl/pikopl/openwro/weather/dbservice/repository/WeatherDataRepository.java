@@ -20,7 +20,7 @@ import pl.pikopl.openwro.weather.dbservice.model.WeatherStation;
  */
 public interface WeatherDataRepository  extends PagingAndSortingRepository<WeatherData, Long>{
 	@Transactional
-	List<WeatherData> findByWeatherStation(WeatherStation weatherStation);
+	Page<WeatherData> findByWeatherStation(WeatherStation weatherStation, Pageable pageable);
 	
 	@Transactional
 	Page<WeatherData> findAll(Pageable pageable);

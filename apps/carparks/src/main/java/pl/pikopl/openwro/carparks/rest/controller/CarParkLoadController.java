@@ -85,10 +85,10 @@ public class CarParkLoadController {
 	 * @return
 	 */
 	@RequestMapping(value = "/carParkLoads/{name}", method = RequestMethod.GET)
-	public Iterable<CarParkLoad> getCarParkLoad(@PathVariable final String name, @RequestParam(defaultValue = DEFAULT_PAGE) int page, @RequestParam(defaultValue = DEFAULT_SIZE) int size, @RequestParam(defaultValue = DEFAULT_SORT_ITEM) String sort, @RequestParam(defaultValue = DEFAULT_SORT_ORDER) String sortOrder) {
+	public Page<CarParkLoad> getCarParkLoad(@PathVariable final String name, @RequestParam(defaultValue = DEFAULT_PAGE) int page, @RequestParam(defaultValue = DEFAULT_SIZE) int size, @RequestParam(defaultValue = DEFAULT_SORT_ITEM) String sort, @RequestParam(defaultValue = DEFAULT_SORT_ORDER) String sortOrder) {
 		LOGGER.infof("Entering getCarParkLoad(%s)", name);
 		final CarPark carPark = carParkRep.findByName(name);
-		final Iterable<CarParkLoad> carkParkLoad = carParkLoadRep.findByCarPark(carPark, createPageRequest(page, size, sort, sortOrder));
+		final Page<CarParkLoad> carkParkLoad = carParkLoadRep.findByCarPark(carPark, createPageRequest(page, size, sort, sortOrder));
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Leaving getCarParkLoad(): %s", carkParkLoad);
 		} else {

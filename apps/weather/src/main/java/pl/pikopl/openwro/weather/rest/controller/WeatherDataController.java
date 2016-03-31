@@ -2,9 +2,15 @@ package pl.pikopl.openwro.weather.rest.controller;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.pikopl.openwro.weather.dbservice.model.WeatherData;
@@ -20,6 +26,14 @@ public class WeatherDataController {
 	@Autowired
 	private WeatherStationRepository weatherStationRepo;
 	
+	private static final String DEFAULT_PAGE = "0";
+	
+	private static final String DEFAULT_SIZE = "2147483647"; // Integer.MAX_VALUE
+	
+	private static final String DEFAULT_SORT_ITEM = "timestamp";
+	
+	private static final String DEFAULT_SORT_ORDER = "desc"; // shows the newest
+	
 	
 	protected static final Logger LOGGER = Logger.getLogger(WeatherDataController.class);
 	
@@ -32,9 +46,9 @@ public class WeatherDataController {
 	 * @return
 	 */
 	@RequestMapping(value = "/weatherData", method = RequestMethod.GET)
-	public Iterable<WeatherData> getAllWeatherData() {
+	public Page<WeatherData> getAllWeatherData(@RequestParam(defaultValue = DEFAULT_PAGE) int page, @RequestParam(defaultValue = DEFAULT_SIZE) int size, @RequestParam(defaultValue = DEFAULT_SORT_ITEM) String sort, @RequestParam(defaultValue = DEFAULT_SORT_ORDER) String sortOrder) {
 		LOGGER.info("Entering getAllWeatherData()");
-		final Iterable<WeatherData> allWeatherData = weatherDataRepo.findAll();
+		final Page<WeatherData> allWeatherData = weatherDataRepo.findAll(createPageRequest(page, size, sort, sortOrder));
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Leaving getAllWeatherData(): %s", allWeatherData);
 		} else {
@@ -68,10 +82,10 @@ public class WeatherDataController {
 	 * @return
 	 */
 	@RequestMapping(value = "/weatherData/{name}", method = RequestMethod.GET)
-	public Iterable<WeatherData> getWeatherData(@PathVariable final String name) {
+	public Page<WeatherData> getWeatherData(@PathVariable final String name, @RequestParam(defaultValue = DEFAULT_PAGE) int page, @RequestParam(defaultValue = DEFAULT_SIZE) int size, @RequestParam(defaultValue = DEFAULT_SORT_ITEM) String sort, @RequestParam(defaultValue = DEFAULT_SORT_ORDER) String sortOrder) {
 		LOGGER.infof("Entering getWeatherData(%s)", name);
 		final WeatherStation weatherStation = weatherStationRepo.findByName(name);
-		final Iterable<WeatherData> weatherData = weatherDataRepo.findByWeatherStation(weatherStation);
+		final Page<WeatherData> weatherData = weatherDataRepo.findByWeatherStation(weatherStation, createPageRequest(page, size, sort, sortOrder));
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Leaving getWeatherData(): %s", weatherData);
 		} else {
@@ -79,4 +93,8 @@ public class WeatherDataController {
 		}
 		return weatherData;
 	}
+	
+    private Pageable createPageRequest(final int page, final int size, String sort, String sortOder) {
+		return new PageRequest(page, size, new Sort(Direction.fromString(sortOder), sort)); 
+    }
 }
