@@ -14,7 +14,7 @@ import pl.pikopl.openwro.carparks.dbservice.model.CarParkLoad;
 public interface CarParkLoadRepository extends PagingAndSortingRepository<CarParkLoad, Long>{
 	
 	@Transactional
-	List<CarParkLoad> findByCarPark(CarPark carPark);
+	List<CarParkLoad> findByCarPark(CarPark carPark, Pageable pageable);
 	
 	@Transactional
 	Page<CarParkLoad> findAll(Pageable pageable);

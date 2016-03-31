@@ -2,9 +2,15 @@ package pl.pikopl.openwro.carparks.rest.controller;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.pikopl.openwro.carparks.dbservice.model.CarPark;
@@ -24,8 +30,16 @@ public class CarParkLoadController {
 	@Autowired
 	private CarParkRepository carParkRep;
 	
+	private static final String DEFAULT_PAGE = "0";
+	
+	private static final String DEFAULT_SIZE = "2147483647"; // Integer.MAX_VALUE
+	
+	private static final String DEFAULT_SORT_ITEM = "timestamp";
+	
+	private static final String DEFAULT_SORT_ORDER = "desc"; // shows the newest
 	
 	protected static final Logger LOGGER = Logger.getLogger(CarParkLoadController.class);
+	
 	/**
 	 * Requests a list of all data from car park load
 	 * 
@@ -35,9 +49,9 @@ public class CarParkLoadController {
 	 * @return
 	 */
 	@RequestMapping(value = "/carParkLoads", method = RequestMethod.GET)
-	public Iterable<CarParkLoad> getAllCarParkLoads() {
+	public Page<CarParkLoad> getAllCarParkLoads(@RequestParam(defaultValue = DEFAULT_PAGE) int page, @RequestParam(defaultValue = DEFAULT_SIZE) int size, @RequestParam(defaultValue = DEFAULT_SORT_ITEM) String sort, @RequestParam(defaultValue = DEFAULT_SORT_ORDER) String sortOrder) {
 		LOGGER.info("Entering getAllCarParkLoads()");
-		final Iterable<CarParkLoad> allCarkParkLoads = carParkLoadRep.findAll();
+		final Page<CarParkLoad> allCarkParkLoads = carParkLoadRep.findAll(createPageRequest(page, size, sort, sortOrder));
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Leaving getAllCarParkLoads(): %s", allCarkParkLoads);
 		} else {
@@ -71,10 +85,10 @@ public class CarParkLoadController {
 	 * @return
 	 */
 	@RequestMapping(value = "/carParkLoads/{name}", method = RequestMethod.GET)
-	public Iterable<CarParkLoad> getCarParkLoad(@PathVariable final String name) {
+	public Iterable<CarParkLoad> getCarParkLoad(@PathVariable final String name, @RequestParam(defaultValue = DEFAULT_PAGE) int page, @RequestParam(defaultValue = DEFAULT_SIZE) int size, @RequestParam(defaultValue = DEFAULT_SORT_ITEM) String sort, @RequestParam(defaultValue = DEFAULT_SORT_ORDER) String sortOrder) {
 		LOGGER.infof("Entering getCarParkLoad(%s)", name);
 		final CarPark carPark = carParkRep.findByName(name);
-		final Iterable<CarParkLoad> carkParkLoad = carParkLoadRep.findByCarPark(carPark);
+		final Iterable<CarParkLoad> carkParkLoad = carParkLoadRep.findByCarPark(carPark, createPageRequest(page, size, sort, sortOrder));
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Leaving getCarParkLoad(): %s", carkParkLoad);
 		} else {
@@ -82,4 +96,8 @@ public class CarParkLoadController {
 		}
 		return carkParkLoad;
 	}
+	
+    private Pageable createPageRequest(final int page, final int size, String sort, String sortOder) {
+		return new PageRequest(page, size, new Sort(Direction.fromString(sortOder), sort)); 
+    }
 }
