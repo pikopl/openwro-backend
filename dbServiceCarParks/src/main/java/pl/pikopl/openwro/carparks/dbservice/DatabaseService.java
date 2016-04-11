@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,7 @@ public class DatabaseService {
 	    Date parsedDate = null;
 	    //TODO: check if timestampString != null
 		try { //TODO: get rid of exception, handle in fillCarkParkLoadTable
+			dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Warsaw"));
 			parsedDate = dateFormat.parse(timestampString);
 		} catch (ParseException e) {
 			LOGGER.error("Exception in parseTimestamp", e);
