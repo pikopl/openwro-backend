@@ -1,5 +1,7 @@
 package pl.pikopl.openwro.carparks.rest.controller;
 
+import java.util.List;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -97,7 +99,27 @@ public class CarParkLoadController {
 		return carkParkLoad;
 	}
 	
+	/**
+	 * Requests the latest (the closest before the "now") entry from the carparkload table for given carpark
+	 * 
+	 * Request example:
+	 * GET http://localhost:8080/carparks/latestEntry/renoma
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/latestEntry/{name}", method = RequestMethod.GET)
+	public CarParkLoad getLatestEntry(@PathVariable final String name){
+		LOGGER.infof("Entering getLatestEntry(%s)", name);
+		CarParkLoad latestEntry = carParkLoadRep.getLatestEntry(name, createPageRequest(0, 1)).get(0);
+		LOGGER.infof("Leaving getLatestEntry(): %s", latestEntry);
+		return latestEntry;
+	}
+	
     private Pageable createPageRequest(final int page, final int size, String sort, String sortOder) {
 		return new PageRequest(page, size, new Sort(Direction.fromString(sortOder), sort)); 
+    }
+    
+    private Pageable createPageRequest(final int page, final int size) {
+		return new PageRequest(page, size); 
     }
 }
