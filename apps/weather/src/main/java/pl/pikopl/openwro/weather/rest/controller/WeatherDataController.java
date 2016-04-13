@@ -97,4 +97,24 @@ public class WeatherDataController {
     private Pageable createPageRequest(final int page, final int size, String sort, String sortOder) {
 		return new PageRequest(page, size, new Sort(Direction.fromString(sortOder), sort)); 
     }
+    
+	/**
+	 * Requests the latest (the closest before the "now") entry from the weatherdata table for given weatherstation
+	 * 
+	 * Request example:
+	 * GET http://localhost:8080/weather/latestEntry/ESTAKADA GADOWIANKA
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/latestEntry/{name}", method = RequestMethod.GET)
+	public WeatherData getLatestEntry(@PathVariable final String name){
+		LOGGER.infof("Entering getLatestEntry(%s)", name);
+		WeatherData latestEntry = weatherDataRepo.getLatestEntry(name, createPageRequest(0, 1)).get(0);
+		LOGGER.infof("Leaving getLatestEntry(): %s", latestEntry);
+		return latestEntry;
+	}
+	
+    private Pageable createPageRequest(final int page, final int size) {
+		return new PageRequest(page, size); 
+    }
 }
