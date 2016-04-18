@@ -30,5 +30,5 @@ public interface WeatherDataRepository  extends PagingAndSortingRepository<Weath
 	WeatherData findByWeatherDataId(long weatherDataId);
 	
 	@Query("SELECT wd FROM WeatherData wd INNER JOIN wd.weatherStation ws WHERE ws.name = (:weatherStationName) ORDER BY wd.timestamp DESC")
-	List<WeatherData> getLatestEntry(@Param("weatherStationName") String weatherDataName, Pageable pageable);
+	List<WeatherData> getLatestEntry(@Param("weatherStationName") String weatherStationName, Pageable pageable);
 }

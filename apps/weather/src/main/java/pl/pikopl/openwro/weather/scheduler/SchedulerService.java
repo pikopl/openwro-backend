@@ -31,7 +31,8 @@ public class SchedulerService {
 	
 	final private static String RESOURCE_URL = "http://www.wroclaw.pl/open-data/opendata/its/pogoda/pogoda.csv";
 	
-	@Scheduled(cron="0 0 4 * * ?")
+	//@Scheduled(cron="0 0 4 * * ?")
+	@Scheduled(cron="0 1-59/10 * * * *")
 	public void importData(){
 		LOGGER.info("Entering importData()");
 		Long resultCode = -1L;
@@ -41,7 +42,8 @@ public class SchedulerService {
 				LOGGER.tracef("After getting string result in importData(): %s", result);
 			}
 			List<Map<String, Object>> data = CsvDataConverter.convert(result);
-			dbService.fillWeatherData(data);
+			//dbService.fillWeatherData(data);
+			dbService.detectChanges(data);
 			resultCode = 200L;
 		} catch (ClientProtocolException e) {
 			LOGGER.error(e);
