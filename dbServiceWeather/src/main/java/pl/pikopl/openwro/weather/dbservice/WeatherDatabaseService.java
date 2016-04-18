@@ -68,7 +68,7 @@ public class WeatherDatabaseService {
 			LOGGER.debugf("fillWeatherDataTable successfully save record (%s, %s)", record.get("Czas_Rejestracji"), record.get("Lokalizacja_Opis"));
 		}
 		if (LOGGER.isTraceEnabled()) {
-			LOGGER.tracef("Leaving fillWeatherDataTable(): %s", data);
+			LOGGER.tracef("Leaving fillWeatherDataTable()");
 		}
 	}
 	
