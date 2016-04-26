@@ -1,7 +1,10 @@
 package pl.pikopl.openwro.carparks.config;
 
 import javax.servlet.Filter;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import pl.pikopl.openwro.carparks.util.CORSFilter;
 
 public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -23,7 +26,7 @@ public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServ
 	@Override
 	protected Filter[] getServletFilters() {
 		return new Filter[] {
-			//new CORSFilter()	
+			new CORSFilter()
 		};
 	}
 }
