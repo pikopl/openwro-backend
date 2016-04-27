@@ -25,5 +25,8 @@ public interface CarParkLoadRepository extends PagingAndSortingRepository<CarPar
 	
 	@Query("SELECT cpl FROM CarParkLoad cpl INNER JOIN cpl.carPark cp WHERE cp.name = (:carParkName) ORDER BY cpl.timestamp DESC")
 	List<CarParkLoad> getLatestEntry(@Param("carParkName") String carParkName, Pageable pageable);
+	
+	@Query("SELECT cpl FROM CarParkLoad cpl INNER JOIN cpl.carPark cp WHERE cp.carParkid = (:carParkId) ORDER BY cpl.timestamp DESC")
+	List<CarParkLoad> getLatestEntry(@Param("carParkId") Long carParkId, Pageable pageable);
 
 }

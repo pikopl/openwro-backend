@@ -100,17 +100,18 @@ public class CarParkLoadController {
 	}
 	
 	/**
-	 * Requests the latest (the closest before the "now") entry from the carparkload table for given carpark
+	 * Requests the latest (the closest before the "now") entry from the carparkload table for given carpark id
 	 * 
 	 * Request example:
-	 * GET http://localhost:8080/carparks/latestEntry/renoma
+	 * GET http://localhost:8080/carparks/latestEntry/1
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/latestEntry/{name}", method = RequestMethod.GET)
-	public CarParkLoad getLatestEntry(@PathVariable final String name){
-		LOGGER.infof("Entering getLatestEntry(%s)", name);
-		CarParkLoad latestEntry = carParkLoadRep.getLatestEntry(name, createPageRequest(0, 1)).get(0);
+	@RequestMapping(value = "/latestEntry/{idString}", method = RequestMethod.GET)
+	public CarParkLoad getLatestEntry(@PathVariable final String idString){
+		LOGGER.infof("Entering getLatestEntry(%s)", idString);
+		//TODO: add error handling when car park not found
+		CarParkLoad latestEntry = carParkLoadRep.getLatestEntry(Long.valueOf(idString), createPageRequest(0, 1)).get(0);
 		LOGGER.infof("Leaving getLatestEntry(): %s", latestEntry);
 		return latestEntry;
 	}
