@@ -1,5 +1,6 @@
 package pl.pikopl.openwro.carparks.rest.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.jboss.logging.Logger;
@@ -112,8 +113,36 @@ public class CarParkLoadController {
 		LOGGER.infof("Entering getLatestEntry(%s)", idString);
 		//TODO: add error handling when car park not found
 		CarParkLoad latestEntry = carParkLoadRep.getLatestEntry(Long.valueOf(idString), createPageRequest(0, 1)).get(0);
-		LOGGER.infof("Leaving getLatestEntry(): %s", latestEntry);
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving getLatestEntry(): %s", latestEntry);
+		} else {
+			LOGGER.info("Leaving getLatestEntry()");
+		}
 		return latestEntry;
+	}
+	
+	/**
+	 * Requests the latest (the closest before the "now") entries for all carparks from the carparkload table
+	 * 
+	 * Request example:
+	 * GET http://localhost:8080/carparks/latestEntries
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/latestEntries", method = RequestMethod.GET)
+	public List<CarParkLoad> getLatestEntries(){
+		LOGGER.infof("Entering getLatestEntries()");
+		List<CarParkLoad> latestEntries = new LinkedList<CarParkLoad>();
+		Iterable<CarPark> carParks = carParkRep.findAll();
+		for (CarPark carPark : carParks) {
+			latestEntries.add(carParkLoadRep.getLatestEntry(carPark.getCarParkid(), createPageRequest(0, 1)).get(0));
+		}
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.tracef("Leaving getLatestEntries(): %s", latestEntries);
+		} else {
+			LOGGER.info("Leaving getLatestEntries()");
+		}
+		return latestEntries;
 	}
 	
     private Pageable createPageRequest(final int page, final int size, String sort, String sortOder) {
