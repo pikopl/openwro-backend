@@ -46,7 +46,6 @@ public class CORSFilter implements Filter {
 	    response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
 	    response.setHeader("Access-Control-Allow-Headers", "x-requested-with,origin,content-type,accept,X-XSRF-TOKEN, authorization");
 	    response.setHeader("Access-Control-Max-Age", "3600");
-	    System.out.println("JESTEM W CORS");
 	    if (!request.getMethod().equals("OPTIONS")) {
 	    	chain.doFilter(req, res);
 	    } else {
