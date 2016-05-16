@@ -62,8 +62,6 @@ public class DatabaseService {
 	protected void fillCarkParkLoadTable(final List<Map<String, Object>> data){
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Entering fillCarkParkLoadTable: %s", data);
-		} else {
-			LOGGER.info("Entering fillCarkParkLoadTable");
 		}
 		for (Map<String, Object> record : data) {
 			try {
@@ -74,7 +72,7 @@ public class DatabaseService {
 			}
 			LOGGER.debugf("fillCarkParkLoadTable successfully save record (%s, %s)", record.get("Czas_Rejestracji"), record.get("Nazwa"));
 		}
-		LOGGER.info("Leaving fillCarkParkLoadTable");
+		LOGGER.debug("Leaving fillCarkParkLoadTable");
 	}
 	
 	protected void addNewCarParkLoadRecord(final Map<String, Object> record) throws ParseException{
