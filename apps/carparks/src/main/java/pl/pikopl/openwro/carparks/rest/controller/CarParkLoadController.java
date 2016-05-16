@@ -1,5 +1,6 @@
 package pl.pikopl.openwro.carparks.rest.controller;
 
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class CarParkLoadController {
 	private static final String DEFAULT_SORT_ITEM = "timestamp";
 	
 	private static final String DEFAULT_SORT_ORDER = "desc"; // shows the newest
+	
+	private static final long MILIS_IN_DAY = 86400000L; // 1000 * 60 * 60 * 24
 	
 	protected static final Logger LOGGER = Logger.getLogger(CarParkLoadController.class);
 	
@@ -135,7 +138,10 @@ public class CarParkLoadController {
 		List<CarParkLoad> latestEntries = new LinkedList<CarParkLoad>();
 		Iterable<CarPark> carParks = carParkRep.findAll();
 		for (CarPark carPark : carParks) {
-			latestEntries.add(carParkLoadRep.getLatestEntry(carPark.getCarParkid(), createPageRequest(0, 1)).get(0));
+			final CarParkLoad carParkLoad = carParkLoadRep.getLatestEntry(carPark.getCarParkid(), createPageRequest(0, 1)).get(0);
+			if (carParkLoad.getTimestamp().getTime() > System.currentTimeMillis() - MILIS_IN_DAY) {
+				latestEntries.add(carParkLoad);
+			}
 		}
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.tracef("Leaving getLatestEntries(): %s", latestEntries);
