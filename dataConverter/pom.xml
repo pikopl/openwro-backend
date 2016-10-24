@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>pl.pikopl</groupId>
-		<artifactId>openwro</artifactId>
+		<groupId>com.xaltome</groupId>
+		<artifactId>smartcity</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>pl.pikopl.openwro</groupId>
+	<groupId>com.xaltome.smartcity</groupId>
 	<artifactId>dataConverter</artifactId>
-	<name>OpenWro ${project.version} :: Data Converter</name>
+	<name>Smart City ${project.version} :: Data Converter</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.logging</groupId>

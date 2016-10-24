@@ -2,14 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>pl.pikopl</groupId>
-		<artifactId>openwro</artifactId>
+		<groupId>com.xaltome</groupId>
+		<artifactId>smartcity</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>pl.pikopl.openwro</groupId>
+	<groupId>com.xaltome.smartcity</groupId>
 	<artifactId>apps</artifactId>
 	<packaging>pom</packaging>
-	<name>OpenWro ${project.version} :: Apps</name>
+	<name>Smart City ${project.version} :: Apps</name>
 	<modules>
 		<module>carparks</module>
 		<module>weather</module>

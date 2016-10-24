@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>pl.pikopl</groupId>
-    <artifactId>openwro</artifactId>
+    <groupId>com.xaltome</groupId>
+    <artifactId>smartcity</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <name>OpenWro ${project.version} :: DB Service :: Car Parks</name>
-  <groupId>pl.pikopl.openwro</groupId>
+  <name>Smart City ${project.version} :: DB Service :: Car Parks</name>
+  <groupId>com.xaltome.smartcity</groupId>
   <artifactId>dbServiceCarParks</artifactId>
   
   	<properties>
